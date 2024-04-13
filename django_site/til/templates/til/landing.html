@@ -3,7 +3,7 @@
 {% block page_body %}
     <body id="landing-body" xmlns="http://www.w3.org/1999/html">
 
-    <div>
+    <div class="d-flex">
         <form action="{% url 'til:til_landing' %}" method="post">
             {% csrf_token %}
             <label for="tag-input">Tags, separate by commas</label>
