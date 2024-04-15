@@ -164,6 +164,10 @@ section {
     border-radius: 10px;
 }
 
+.bg-primary-gradient {
+    background: linear-gradient(135deg, #e7e8e8, #f8faff);
+    height: 100%;
+}
 
 @media screen and (max-width: 800px) {
 

@@ -11,7 +11,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development django_root - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -22,7 +21,6 @@ THIS_IS_FOR_LAPTOP_ONLY = True
 DEBUG = THIS_IS_FOR_LAPTOP_ONLY
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -39,7 +37,6 @@ INSTALLED_APPS = [
 
 if "DEBUG_TOOLBAR" in os.environ:
     INSTALLED_APPS.append("debug_toolbar")
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -84,7 +81,6 @@ DATABASES = {
 
 WSGI_APPLICATION = "django_root.wsgi.application"
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -102,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
+AUTH_USER_MODEL = 'til.User'
 
 LANGUAGE_CODE = "en-us"
 

@@ -9,4 +9,7 @@ urlpatterns = [
     path("tagged/", views.landing_page, name="til_show"),
     path("tagged/<str:tagstring>", views.landing_page, name="til_show_tagged"),
     path("", views.landing_page, name="til_landing"),
+    path("login", views.login_view, name="til_login"),
+    path("signup", views.signup_view, name="til_signup"),
+    path("logout", views.logout_view, name="til_logout")
 ]

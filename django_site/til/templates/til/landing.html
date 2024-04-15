@@ -2,22 +2,35 @@
 {% include static %}
 {% block page_body %}
     <body id="landing-body" xmlns="http://www.w3.org/1999/html">
-
-    <div class="d-flex">
-        <form action="{% url 'til:til_landing' %}" method="post">
-            {% csrf_token %}
-            <label for="tag-input">Tags, separate by commas</label>
-            <input class="til-text-input" type="text" id="tag-input" name="tag-input">
-            <input id="landing-apply-filter-button" type="submit" value="apply filter"/>
-        </form>
-        <form action="{% url 'til:til_landing' %}" method="get">
-            <input id="landing-clear-filter-button" type="submit" value="clear filter"/>
-        </form>
+    <div class="container py-4">
+        {#    fixme: temporary location for login and signup#}
+        <div class="d-flex justify-content-between pb-5">
+            {% if user.is_authenticated %}
+            	<a class="btn btn-primary" href="{% url 'til:til_logout' %}">logout</a>
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'til:til_login' %}">login</a>
+                <a class="btn btn-primary" href="{% url 'til:til_signup' %}">signup</a>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1 class="fw-bold text-center" style="font-size:4rem">tildeblog</h1>
+            </div>
+            <div class="col-lg-4">
+                <form action="{% url 'til:til_landing' %}" method="post">
+                    {% csrf_token %}
+                    <label class="mb-3 text-center" for="tag-input">Filter by tag (comma seperated)</label>
+                    <input class="form-control" type="text" id="tag-input" name="tag-input">
+                    <div class="d-flex">
+                        <input class="form-control" id="landing-clear-filter-button" type="submit"
+                               value="clear filter"/>
+                        <input class="form-control" id="landing-apply-filter-button" type="submit"
+                               value="apply filter"/>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <P>- - - - - big visual separator here - - - - - </P>
-
-
     <main>
 
 

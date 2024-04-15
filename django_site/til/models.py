@@ -1,4 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    id = models.AutoField(primary_key=True)
 
 
 class Author(models.Model):
@@ -35,6 +40,6 @@ class Learned(models.Model):
     )
     tags = models.ManyToManyField(LearningTag)
 
-     # Function here will make it show STR Name vs object number in admin view
+    # Function here will make it show STR Name vs object number in admin view
     def __str__(self):
         return self.title

@@ -1,11 +1,59 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
-
+from django.contrib.auth import authenticate, login, logout
 from .forms import LearningForm
-
-from .models import Learned
+from django.db import IntegrityError
+from django.contrib import messages
+from .models import Learned, User
 
 from .tag_utils import TagHelper
+
+
+def login_view(request):
+    if request.method == "POST":
+        # Attempt to sign user in
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Logged in successfully", extra_tags='success')
+            return HttpResponseRedirect(reverse("til:til_landing"))
+        else:
+            messages.error(request, "Invalid username and/or password.", extra_tags='danger')
+            return render(request, "til/login.html")
+    else:
+        return render(request, "til/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Logged out successfully", extra_tags='success')
+    return HttpResponseRedirect(reverse("til:til_landing"))
+
+
+def signup_view(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            messages.error(request, "Passwords must match.", extra_tags='danger')
+            return render(request, "til/signup.html")
+        try:
+            user = User.objects.create_user(username, password)
+            user.save()
+        except IntegrityError:
+            messages.error(request, "Username already taken.", extra_tags='danger')
+            return render(request, "til/signup.html", {
+                "error": "username already taken",
+            })
+        login(request, user)
+        messages.success(request, "Account created successfully", extra_tags='success')
+        return HttpResponseRedirect(reverse("til:til_landing"))
+    else:
+        return render(request, "til/signup.html")
 
 
 def show(request, learnt_id):

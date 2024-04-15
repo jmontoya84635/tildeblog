@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Learned, LearningTag
+from .models import Learned, LearningTag, User
 
 # these classes are allowing visual aids in the admin view.
 # and also if indicated will allow you to search the respective areas, i.e. name or title.
@@ -16,3 +16,4 @@ class TagAdmin(admin.ModelAdmin):
 # this will add view and edit functionality on the admin page
 admin.site.register(Learned, LearnedAdmin)
 admin.site.register(LearningTag, TagAdmin)
+admin.site.register(User)
